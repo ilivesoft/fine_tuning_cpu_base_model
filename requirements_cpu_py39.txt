@@ -1,0 +1,46 @@
+# Windows CPU 전용 Python 패키지 (Python 3.9 호환)
+
+# PyTorch CPU 버전 (먼저 별도 설치 필요)
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+
+# Transformers 및 ML 라이브러리
+transformers>=4.35.0,<4.50.0
+accelerate>=0.25.0,<1.0.0
+peft>=0.7.0,<0.10.0
+datasets>=2.14.0,<3.0.0
+sentencepiece>=0.1.99
+
+# 데이터 처리
+pandas>=1.5.3,<2.0.0
+numpy>=1.24.0,<2.0.0
+pyarrow>=12.0.0,<15.0.0
+
+# 과학 계산 (Python 3.9 호환 버전)
+scikit-learn>=1.2.0,<1.4.0
+scipy>=1.9.0,<1.12.0
+
+# 유틸리티
+tqdm>=4.65.0
+psutil>=5.9.0
+
+# 파일 처리
+tokenizers>=0.15.0,<0.20.0
+safetensors>=0.4.0,<0.5.0
+huggingface-hub>=0.19.0,<0.25.0
+fsspec>=2023.10.0
+
+# 템플릿 및 설정
+Jinja2>=3.1.0
+PyYAML>=6.0
+
+# 네트워킹
+requests>=2.31.0
+
+# 기타 의존성
+packaging>=23.0
+filelock>=3.12.0
+regex>=2023.10.0
+typing_extensions>=4.8.0
+
+# 주의: bitsandbytes는 GPU 전용이므로 제외
+# 주의: 일부 최신 버전은 Python 3.10+ 필요

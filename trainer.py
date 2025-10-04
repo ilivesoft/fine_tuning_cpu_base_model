@@ -15,7 +15,7 @@ from transformers import (
 from datasets import Dataset
 import torch
 
-from config import training_config
+from config_cpu import training_config
 
 logger = logging.getLogger(__name__)
 

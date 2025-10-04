@@ -194,43 +194,59 @@ def format_time_duration(seconds: float) -> str:
     else:
         return f"{secs}초"
 
+
 def get_system_info() -> Dict[str, Any]:
-    """시스템 정보 수집"""
+    """시스템 정보 수집 - Windows/Linux/Mac 호환"""
+    import platform
+    import sys
+
+    # Python 버전 정보를 안전하게 가져오기
+    python_version = f"Python {sys.version.split()[0]}"
+
     info = {
         "timestamp": datetime.now().isoformat(),
-        "python_version": subprocess.check_output(["python3", "--version"]).decode().strip(),
+        "python_version": python_version,
         "torch_version": torch.__version__,
         "cuda_available": torch.cuda.is_available(),
         "system": {
+            "platform": platform.system(),  # Windows, Linux, Darwin
+            "platform_release": platform.release(),
+            "platform_version": platform.version(),
             "cpu_count": psutil.cpu_count(),
-            "memory_gb": psutil.virtual_memory().total / 1024**3,
-            "disk_free_gb": psutil.disk_usage('.').free / 1024**3
+            "cpu_count_logical": psutil.cpu_count(logical=True),
+            "memory_gb": psutil.virtual_memory().total / 1024 ** 3,
+            "memory_available_gb": psutil.virtual_memory().available / 1024 ** 3,
+            "disk_free_gb": psutil.disk_usage('.').free / 1024 ** 3
         }
     }
-    
+
     if torch.cuda.is_available():
         info["gpu"] = get_gpu_info()
-    
+
     return info
 
+
 def print_system_info():
-    """시스템 정보 출력"""
+    """시스템 정보 출력 - Windows 호환"""
     info = get_system_info()
-    
-    print("\n" + "="*50)
+
+    print("\n" + "=" * 50)
     print("💻 System Information")
-    print("="*50)
+    print("=" * 50)
+    print(f"Platform: {info['system']['platform']} {info['system']['platform_release']}")
     print(f"Python: {info['python_version']}")
     print(f"PyTorch: {info['torch_version']}")
     print(f"CUDA Available: {info['cuda_available']}")
-    print(f"CPU Cores: {info['system']['cpu_count']}")
-    print(f"RAM: {info['system']['memory_gb']:.1f} GB")
+    print(f"CPU Cores (Physical): {info['system']['cpu_count']}")
+    print(f"CPU Cores (Logical): {info['system']['cpu_count_logical']}")
+    print(f"RAM Total: {info['system']['memory_gb']:.1f} GB")
+    print(f"RAM Available: {info['system']['memory_available_gb']:.1f} GB")
     print(f"Free Disk: {info['system']['disk_free_gb']:.1f} GB")
-    
+
     if info['cuda_available']:
         print_gpu_info()
-    
-    print("="*50)
+
+    print("=" * 50)
 
 def validate_csv_file(csv_path: str) -> bool:
     """CSV 파일 유효성 검사"""

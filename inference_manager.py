@@ -7,7 +7,7 @@ import logging
 from typing import Dict, List, Optional
 from transformers import PreTrainedModel, PreTrainedTokenizer
 
-from config import inference_config, format_prompt
+from config_cpu import inference_config, format_prompt
 
 logger = logging.getLogger(__name__)
 

@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "1 app.py + 인자",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "D:/Dev/Source/fine_tuning_cpu_base_model/main_inference_cpu.py",
+            "console": "integratedTerminal",
+            // "args": "${command:pickArgs}"
+            "args": "--model_path ./fine_tuned_model_cpu --question \"전세권이란 무엇인가요?\""
+        },
+        {
+            "name": "2 main_inference_cpu.py + 인자",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main_train_cpu.py",
+            "args": "--model_path ./fine_tuned_model_cpu --question \"전세권이란 무엇인가요?\"",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "3 main_train_cpu.py + 인자",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main_train_cpu.py",
+            "args": "--csv_path civil_law_qa_dataset.csv --output_dir ./fine_tuned_model_cpu --max_steps 100 --batch_size 1 --learning_rate 5e-5",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        } 
+    ]
+}
